@@ -30,6 +30,10 @@ scripts/linuxdo-l3-auto-browse.user.js    linux.do L3 自动浏览助手（用�
 
 私有仓库默认不展示（`SHOW_PRIVATE = false`），改成 `true` 即可。
 
+> **改了 `assets/` 下的 css 或 js 之后**，记得把 `index.html` 里两个资源地址的
+> `?v=20261019a` 换成任意新值（例如日期+字母）。GitHub Pages 会给资源加 10 分钟
+> 缓存，不换这个版本号的话，你自己打开看到的可能还是旧页面。
+
 ## 用户脚本的安装与更新
 
 - 安装：打开 <https://cglyvip.github.io/> 点「安装脚本」，或直接把
