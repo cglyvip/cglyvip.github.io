@@ -129,12 +129,18 @@
         else node.setAttribute(k, v === true ? '' : v);
       });
     }
-    for (var i = 2; i < arguments.length; i++) {
-      var kid = arguments[i];
-      if (kid == null || kid === false) continue;
-      node.appendChild(typeof kid === 'string' ? document.createTextNode(kid) : kid);
-    }
+    for (var i = 2; i < arguments.length; i++) append(node, arguments[i]);
     return node;
+  }
+
+  /** 递归挂载子节点：数组会被展开，null / false 直接跳过 */
+  function append(node, kid) {
+    if (kid == null || kid === false) return;
+    if (Array.isArray(kid)) {
+      kid.forEach(function (k) { append(node, k); });
+      return;
+    }
+    node.appendChild(typeof kid === 'string' ? document.createTextNode(kid) : kid);
   }
 
   var ICONS = {
@@ -154,10 +160,18 @@
     return svg;
   }
 
+  /** meta 统一成数组：既接受 ['a','b']，也接受 'a · b' */
+  function metaParts(meta) {
+    if (!meta) return [];
+    return Array.isArray(meta) ? meta.slice() : String(meta).split(' · ');
+  }
+
   /** 命中搜索：名称 / 描述 / 标签 / 元信息 */
   function matches(item, q) {
     if (!q) return true;
-    var hay = [item.name, item.desc, item.tag, item.meta, item.tags].join(' ').toLowerCase();
+    var hay = [item.name, item.desc, item.tag]
+      .concat(metaParts(item.meta), item.tags || [])
+      .join(' ').toLowerCase();
     return q.split(/\s+/).every(function (w) { return hay.indexOf(w) > -1; });
   }
 
@@ -179,13 +193,13 @@
       ? h('p', { class: 'card-desc', text: item.desc })
       : h('p', { class: 'card-desc empty', text: '暂无简介' }));
 
-    if (item.meta) {
-      var parts = String(item.meta).split(' · ');
+    var parts = metaParts(item.meta);
+    if (parts.length) {
       c.appendChild(h('div', { class: 'card-meta' },
         parts.map(function (t, i) {
           var cls = t.indexOf('★') === 0 ? 'st' : '';
           return [i ? h('span', { text: '·' }) : null, h('span', { class: cls, text: t })];
-        }).flat()
+        })
       ));
     }
 
@@ -278,7 +292,7 @@
     var dates = [];
     CATEGORIES.forEach(function (c) {
       c.items.forEach(function (it) {
-        String(it.meta || '').split(' · ').forEach(function (t) {
+        metaParts(it.meta).forEach(function (t) {
           if (/^\d{4}-\d{2}-\d{2}$/.test(t)) dates.push(t);
         });
       });
