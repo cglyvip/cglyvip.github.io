@@ -1,6 +1,6 @@
 /* =========================================================================
  * cglyvip · 工具导航
- * 深色「工具台」风格：暖琥珀强调色、细网格底纹、等宽元信息。
+ * 深色「工具台」风格：蓝紫强调色、细网格底纹、等宽元信息。
  * ========================================================================= */
 
 :root {
@@ -12,9 +12,9 @@
   --fg:        #ece9e4;
   --fg-dim:    #9aa0aa;
   --fg-mute:   #6a707a;
-  --accent:    #ff9e4f;
-  --accent-dim:rgba(255, 158, 79, .14);
-  --teal:      #52cfc0;
+  --accent:    #6366f1;
+  --accent-2:  #8b5cf6;
+  --accent-dim:rgba(99, 102, 241, .14);
 
   --font: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Segoe UI",
           system-ui, -apple-system, sans-serif;
@@ -46,8 +46,8 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(900px 520px at 12% -8%, rgba(255, 158, 79, .10), transparent 62%),
-    radial-gradient(760px 500px at 92% 4%, rgba(82, 207, 192, .07), transparent 60%),
+    radial-gradient(900px 520px at 12% -8%, rgba(99, 102, 241, .16), transparent 62%),
+    radial-gradient(760px 500px at 92% 4%, rgba(139, 92, 246, .12), transparent 60%),
     linear-gradient(180deg, #0b0d11 0%, #08090b 55%, #060708 100%);
 }
 body::after {
@@ -76,7 +76,7 @@ body::after {
 }
 
 a { color: inherit; text-decoration: none; }
-::selection { background: var(--accent); color: #100c07; }
+::selection { background: var(--accent); color: #fff; }
 
 :focus-visible {
   outline: 2px solid var(--accent);
@@ -113,10 +113,10 @@ a { color: inherit; text-decoration: none; }
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  background: linear-gradient(150deg, var(--accent), #e0712a);
-  color: #120c05;
+  background: linear-gradient(150deg, var(--accent), var(--accent-2));
+  color: #fff;
   font: 700 13px/1 var(--mono);
-  box-shadow: 0 6px 18px -6px rgba(255, 158, 79, .6);
+  box-shadow: 0 6px 18px -6px rgba(99, 102, 241, .6);
 }
 .brand-text { font-size: 15px; }
 .brand-text i { color: var(--accent); font-style: normal; padding: 0 1px; }
@@ -138,7 +138,7 @@ a { color: inherit; text-decoration: none; }
 }
 .search:focus-within {
   border-color: var(--accent-dim);
-  border-color: rgba(255, 158, 79, .45);
+  border-color: rgba(99, 102, 241, .45);
   background: rgba(255, 255, 255, .05);
 }
 .search-icon {
@@ -255,10 +255,10 @@ main {
 .chip[aria-selected="true"] {
   background: var(--accent);
   border-color: var(--accent);
-  color: #120c05;
+  color: #fff;
   font-weight: 600;
 }
-.chip[aria-selected="true"] .n { color: rgba(18, 12, 5, .6); }
+.chip[aria-selected="true"] .n { color: rgba(255, 255, 255, .7); }
 
 /* 分组 ------------------------------------------------------------------- */
 .group { padding: 38px 0 6px; }
@@ -317,13 +317,13 @@ main {
   inset: 0 auto auto 0;
   height: 2px;
   width: 0;
-  background: linear-gradient(90deg, var(--accent), var(--teal));
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
   transition: width .45s cubic-bezier(.22, .8, .3, 1);
 }
 .card:hover {
-  border-color: rgba(255, 158, 79, .34);
+  border-color: rgba(99, 102, 241, .34);
   transform: translateY(-4px);
-  box-shadow: 0 22px 44px -26px rgba(0, 0, 0, .95), 0 0 0 1px rgba(255, 158, 79, .07);
+  box-shadow: 0 22px 44px -26px rgba(0, 0, 0, .95), 0 0 0 1px rgba(99, 102, 241, .07);
 }
 .card:hover::before { width: 100%; }
 
@@ -360,8 +360,8 @@ main {
   color: var(--fg-mute);
   white-space: nowrap;
 }
-.tag.private { border-color: rgba(255, 158, 79, .38); color: var(--accent); }
-.tag.script  { border-color: rgba(82, 207, 192, .38); color: var(--teal); }
+.tag.private { border-color: rgba(99, 102, 241, .38); color: var(--accent); }
+.tag.script  { border-color: rgba(139, 92, 246, .38); color: var(--accent-2); }
 
 .card-desc {
   margin: 0;
@@ -403,10 +403,10 @@ main {
 .btn.primary {
   border-color: transparent;
   background: var(--accent);
-  color: #120c05;
+  color: #fff;
   font-weight: 600;
 }
-.btn.primary:hover { background: #ffab68; }
+.btn.primary:hover { background: var(--accent-2); }
 .btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 .empty {
@@ -431,6 +431,11 @@ footer {
 footer i { font-style: normal; }
 footer a { color: var(--fg-dim); }
 footer a:hover { color: var(--accent); }
+
+/* 大屏：卡片固定两列 ------------------------------------------------------ */
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
 
 /* 窄屏 ------------------------------------------------------------------- */
 @media (max-width: 720px) {

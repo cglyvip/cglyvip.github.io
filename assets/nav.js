@@ -66,6 +66,40 @@
       ]
     },
     {
+      id: 'ai',
+      name: 'AI 工具',
+      items: [
+        {
+          name: 'DeepSeek',
+          desc: '深度求索的通用大模型对话入口，代码与推理表现稳定。',
+          url: 'https://chat.deepseek.com/',
+          tag: 'AI',
+          meta: ['deepseek.com', '对话']
+        },
+        {
+          name: 'Claude',
+          desc: 'Anthropic 的 Claude，长文本阅读、写作与代码理解都很顺手。',
+          url: 'https://claude.ai/',
+          tag: 'AI',
+          meta: ['anthropic.com', '对话']
+        },
+        {
+          name: 'ChatGPT',
+          desc: 'OpenAI 的 ChatGPT，通用问答、绘图与多模态能力齐全。',
+          url: 'https://chatgpt.com/',
+          tag: 'AI',
+          meta: ['openai.com', '对话']
+        },
+        {
+          name: 'Gemini',
+          desc: 'Google Gemini，与搜索和 Workspace 打通的多模态助手。',
+          url: 'https://gemini.google.com/',
+          tag: 'AI',
+          meta: ['google.com', '对话']
+        }
+      ]
+    },
+    {
       id: 'projects',
       name: '开源项目',
       items: [
